@@ -4,22 +4,29 @@ import io from 'socket.io-client';
 import Lobby from '../components/Lobby';
 import { openSocket, closeSocket } from '../actions/actionCreator';
 
+const mapStateToProps = state => ({ user: state.user });
+
 const mapDispatchToProps = dispatch => {
   const socket = io(process.env.REACT_APP_PROXY_URL);
 
+  socket.on('success create room', ({ newRoom }) => {
+    // TODO: Handle Room State
+    console.log('success create room', newRoom);
+  });
+
   return {
-    openSocket() {
-      socket.on('new socket id', ({ socketId }) => {
-        console.log('new socket id : ', socketId);
-        dispatch(openSocket(socket));
-      });
+    openSocket(userId) {
+      socket.emit('new user', { userId });
+      dispatch(openSocket(userId, socket));
     },
     closeSocket() {
       socket.disconnect();
-      console.log('socket disconnected', socket);
       dispatch(closeSocket());
+    },
+    createRoom(userId, roomData) {
+      socket.emit('create room', { userId, roomData });
     },
   };
 };
 
-export default connect(null, mapDispatchToProps)(Lobby);
+export default connect(mapStateToProps, mapDispatchToProps)(Lobby);
