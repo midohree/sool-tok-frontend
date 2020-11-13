@@ -36,6 +36,20 @@ const tokenLogin = async token => {
   }
 };
 
-const userService = { googleLogin, tokenLogin };
+const getFriendList = async (id, token) => {
+  try {
+    const { data } = await axios.get(`/users/${id}/friends`, {
+      headers: {
+        'jwt-token': token,
+      },
+    });
+    if (data.result === 'error') throw new Error(data);
+    return data.friendList;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const userService = { googleLogin, tokenLogin, getFriendList };
 
 export { userService };
