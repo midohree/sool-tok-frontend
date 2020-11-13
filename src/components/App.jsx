@@ -4,7 +4,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 
 import FloatingButton from './FloatingButton';
 import MyPageContainer from '../containers/MyPageContainer';
-import Lobby from './Lobby';
+import LobbyContainer from '../containers/LobbyContainer';
 import Login from './Login';
 
 function App({ onLogin, onLoad, user }) {
@@ -20,7 +20,7 @@ function App({ onLogin, onLoad, user }) {
       { user && <FloatingButton onClick={() => { setOpenMyPage(!isOpenedMyPage); }} text='나' />}
       <Switch>
         <Route path='/'>
-          { user ? <Lobby /> : <Login onLogin={onLogin} /> }
+          { user ? <LobbyContainer /> : <Login onLogin={onLogin} /> }
         </Route>
         <Route path='/room/:id'>
         </Route>
