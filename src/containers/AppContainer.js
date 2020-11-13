@@ -9,7 +9,7 @@ const mapStateToProps = state => ({ user: state.user });
 const mapDispatchToProps = dispatch => ({
   async onLogin() {
     try {
-      const { userInfo: user, token } = await userService.login();
+      const { user, token } = await userService.login();
       localStorage.setItem('jwt-token', token);
       dispatch(loginUser(user));
     } catch (err) {
