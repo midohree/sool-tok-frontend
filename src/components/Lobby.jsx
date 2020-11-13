@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import Button from './Button';
-import FloatingButton from './FloatingButton';
 
 function Lobby({ openSocket, closeSocket }) {
   useEffect(() => {
@@ -15,7 +14,6 @@ function Lobby({ openSocket, closeSocket }) {
       <h1>LOBBY</h1>
       <Button onClick={() => console.log('make room')} text='+ 좌석잡기' />
       <Button onClick={() => console.log('join room')} text='URL로 참여하기' />
-      <FloatingButton onClick={() => console.log('open my page')} />
     </div>
   );
 }
@@ -25,5 +23,4 @@ export default Lobby;
 Lobby.propTypes = {
   openSocket: PropTypes.func.isRequired,
   closeSocket: PropTypes.func.isRequired,
-  sendMessage: PropTypes.func.isRequired,
 };
