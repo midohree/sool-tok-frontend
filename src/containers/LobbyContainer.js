@@ -4,22 +4,19 @@ import io from 'socket.io-client';
 import Lobby from '../components/Lobby';
 import { openSocket, closeSocket } from '../actions/actionCreator';
 
-const mapDispatchToProps = dispatch => {
-  const socket = io(process.env.REACT_APP_PROXY_URL);
+const mapStateToProps = state => ({ socket: state.socket });
 
+const mapDispatchToProps = dispatch => {
   return {
     openSocket() {
-      socket.on('new socket id', ({ socketId }) => {
-        console.log('new socket id : ', socketId);
-        dispatch(openSocket(socket));
-      });
+      const socket = io(process.env.REACT_APP_PROXY_URL);
+      dispatch(openSocket(socket));
     },
-    closeSocket() {
+    closeSocket(socket) {
       socket.disconnect();
-      console.log('socket disconnected', socket);
       dispatch(closeSocket());
     },
   };
 };
 
-export default connect(null, mapDispatchToProps)(Lobby);
+export default connect(mapStateToProps, mapDispatchToProps)(Lobby);
