@@ -12,5 +12,5 @@ ReactDOM.render(
       <AppContainer />
     </Router>
   </Provider>
-  , document.getElementById('root')
+  , document.getElementById('root'),
 );
