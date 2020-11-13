@@ -23,7 +23,7 @@ export default App;
 App.propTypes = {
   onLogin: PropTypes.func.isRequired,
   user: PropTypes.oneOfType([
-    PropTypes.instanceOf(null).isRequired,
-    PropTypes.object.isRequired,
+    PropTypes.oneOf([null]),
+    PropTypes.object,
   ]),
 };

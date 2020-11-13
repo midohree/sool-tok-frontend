@@ -1,12 +1,20 @@
 import { connect } from 'react-redux';
 
 import App from '../components/App';
+import { userService } from '../utils/api';
+import { loginUser } from '../actions/actionCreator';
 
 const mapStateToProps = state => ({ user: state.user });
 
 const mapDispatchToProps = dispatch => ({
-  onLogin() {
-    console.log('Login!');
+  async onLogin() {
+    try {
+      const { userInfo: user, token } = await userService.login();
+      localStorage.setItem('jwt-token', token);
+      dispatch(loginUser(user));
+    } catch (err) {
+      console.error(err);
+    }
   },
 });
 
