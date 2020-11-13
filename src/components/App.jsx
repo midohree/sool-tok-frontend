@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
-import Lobby from './Lobby';
+import LobbyContainer from '../containers/LobbyContainer';
 import Login from './Login';
 
 function App({ onLogin, onLoad, user }) {
@@ -13,7 +13,7 @@ function App({ onLogin, onLoad, user }) {
   return (
     <Switch>
       <Route path='/'>
-        { user ? <Lobby /> : <Login onLogin={onLogin} /> }
+        {user ? <LobbyContainer /> : <Login onLogin={onLogin} />}
       </Route>
       <Route path='/room/:id'>
       </Route>
