@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import Lobby from './Lobby';
 import Login from './Login';
 
-function App({ onLogin, user }) {
+function App({ onLogin, onLoad, user }) {
+  useEffect(() => {
+    onLoad();
+  }, []);
+
   return (
     <Switch>
       <Route path='/'>
@@ -22,6 +26,7 @@ export default App;
 
 App.propTypes = {
   onLogin: PropTypes.func.isRequired,
+  onLoad: PropTypes.func.isRequired,
   user: PropTypes.oneOfType([
     PropTypes.oneOf([null]),
     PropTypes.object,
