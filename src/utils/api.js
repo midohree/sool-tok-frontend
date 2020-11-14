@@ -62,6 +62,22 @@ const getFriendList = async (id, token) => {
   }
 };
 
-const userService = { googleLogin, tokenLogin, logout, getFriendList };
+const requestFriend = async (id, token, email) => {
+  try {
+    const data = await axios.post(`/users/${id}/friends/request`, { email }, {
+      headers: {
+        'jwt-token': token,
+      },
+    });
+    // TODO: 204 status code는 body를 받을 수 없음..상태 코드 업데이트 혹은 res data 처리를 어떻게 할지 논의 필요
+    console.log('data', data);
+
+    if (data.result === 'error') throw new Error(data);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const userService = { googleLogin, tokenLogin, logout, getFriendList, requestFriend };
 
 export { userService };
