@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Button from './Button';
 import FriendCell from './FriendCell';
 
-function MyPage({ onLoad, user }) {
+function MyPage({ onLoad, onLogout, user }) {
   const [isRequestList, setRequestList] = useState(false);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ function MyPage({ onLoad, user }) {
           <h3>{user.name}</h3>
           <p>{user.email}</p>
         </div>
-        <Button onClick={() => {}} text='로그아웃' />
+        <Button onClick={() => { onLogout(user); }} text='로그아웃' />
       </div>
       <div>
         {
@@ -52,6 +52,7 @@ export default MyPage;
 
 MyPage.propTypes = {
   onLoad: PropTypes.func.isRequired,
+  onLogout: PropTypes.func.isRequired,
   user: PropTypes.oneOfType([
     PropTypes.oneOf([null]),
     PropTypes.object,

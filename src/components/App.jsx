@@ -16,7 +16,7 @@ function App({ onLogin, onLoad, user }) {
 
   return (
     <>
-      { isOpenedMyPage && <MyPageContainer /> }
+      { user && isOpenedMyPage && <MyPageContainer /> }
       { user && <FloatingButton onClick={() => { setOpenMyPage(!isOpenedMyPage); }} text='나' />}
       <Switch>
         <Route path='/'>

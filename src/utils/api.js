@@ -36,6 +36,18 @@ const tokenLogin = async token => {
   }
 };
 
+const logout = async (id, token) => {
+  try {
+    await axios.post(`/users/${id}/logout`, null, {
+      headers: {
+        'jwt-token': token,
+      },
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 const getFriendList = async (id, token) => {
   try {
     const { data } = await axios.get(`/users/${id}/friends`, {
@@ -50,6 +62,6 @@ const getFriendList = async (id, token) => {
   }
 };
 
-const userService = { googleLogin, tokenLogin, getFriendList };
+const userService = { googleLogin, tokenLogin, logout, getFriendList };
 
 export { userService };
