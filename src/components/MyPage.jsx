@@ -21,6 +21,7 @@ function MyPage({ onLoad, onLogout, user }) {
         <Button onClick={() => { onLogout(user); }} text='로그아웃' />
       </div>
       <div>
+        { !isRequestList && <Button onClick={() => {}} text='친구 요청하기' /> }
         {
           !isRequestList ?
             user.friendList?.length > 0 ?
