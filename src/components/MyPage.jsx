@@ -12,13 +12,10 @@ function MyPage({ onLoad, onLogout, onLoadRequestList, onSubmit, onRequest, user
   const [isModalOpen, setModalOpen] = useState(false);
   const [modalContent, setmodalContent] = useState(null);
 
-  // FOR TEST
-  user.friendRequestList = [{ _id: '5fae69b9658cb56537fb2d29', name: '김도희', photoUrl: 'https://avatars3.githubusercontent.com/u/60248910?s=400&u=d906c83a0156628a86a758b717b50a2c2b417046&v=4', isOnline: true }];
-
   useEffect(() => {
     onLoad(user);
   }, []);
-  
+
   useEffect(() => {
     if (isRequestList) {
       onLoadRequestList(user);
@@ -47,7 +44,7 @@ function MyPage({ onLoad, onLogout, onLoadRequestList, onSubmit, onRequest, user
         { !isRequestList &&
           <Button
             text='친구 추가하기'
-            onClick={() => openModal(<AddFriendForm onSubmit={console.log}/>)}
+            onClick={() => openModal(<AddFriendForm onSubmit={input => { onRequest(user, input); }}/>)}
           />
         }
         { isModalOpen && (
