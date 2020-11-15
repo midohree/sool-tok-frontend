@@ -3,13 +3,25 @@ import PropTypes from 'prop-types';
 
 import Button from './Button';
 import FriendCell from './FriendCell';
+import ModalPortal from './ModalPortal';
+import Modal from './Modal';
+import AddFriendForm from './AddFriendForm';
 
 function MyPage({ onLoad, onLogout, user }) {
   const [isRequestList, setRequestList] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [modalContent, setmodalContent] = useState(null);
 
   useEffect(() => {
     onLoad(user);
   }, []);
+
+  const openModal = element => {
+    setModalOpen(true);
+    setmodalContent(element);
+  };
+
+  const closeModal = () => setModalOpen(false);
 
   return (
     <div style={{ backgroundColor: 'lightGray' }}>
@@ -21,7 +33,17 @@ function MyPage({ onLoad, onLogout, user }) {
         <Button onClick={() => { onLogout(user); }} text='로그아웃' />
       </div>
       <div>
-        { !isRequestList && <Button onClick={() => {}} text='친구 요청하기' /> }
+        { !isRequestList &&
+          <Button
+            text='친구 추가하기'
+            onClick={() => openModal(<AddFriendForm onSubmit={console.log}/>)}
+          />
+        }
+        { isModalOpen && (
+          <ModalPortal>
+            <Modal closeModal={closeModal}>{modalContent}</Modal>
+          </ModalPortal>
+        )}
         {
           !isRequestList ?
             user.friendList?.length > 0 ?
