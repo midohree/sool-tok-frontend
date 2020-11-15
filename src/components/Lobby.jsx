@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import Button from './Button';
@@ -7,14 +8,20 @@ import Modal from './Modal';
 import CreateRoomForm from './CreateRoomForm';
 import JoinRoomForm from './JoinRoomForm';
 
-function Lobby({ user, openSocket, closeSocket, createRoom }) {
+function Lobby({ user, socket, createRoom }) {
   const [isModalOpen, setModalOpen] = useState(false);
   const [modalContent, setmodalContent] = useState(null);
+  const history = useHistory();
 
   useEffect(() => {
-    openSocket(user.name);
-    return () => closeSocket();
-  }, []);
+    if (!socket) return;
+
+    socket.on('success create room', ({ room }) => {
+      console.log('success create room :', room);
+      createRoom(room);
+      history.push(`/rooms/${room.id}`);
+    });
+  }, [socket]);
 
   const openModal = element => {
     setmodalContent(element);
@@ -30,7 +37,9 @@ function Lobby({ user, openSocket, closeSocket, createRoom }) {
         onClick={() =>
           openModal(
             <CreateRoomForm
-              onSubmit={roomData => createRoom(user.id, roomData)}
+              onSubmit={roomData =>
+                socket.emit('create room', { user, roomData })
+              }
             />,
           )
         }
@@ -53,8 +62,7 @@ export default Lobby;
 
 Lobby.propTypes = {
   user: PropTypes.object,
+  room: PropTypes.object,
   socket: PropTypes.object,
-  openSocket: PropTypes.func.isRequired,
-  closeSocket: PropTypes.func.isRequired,
   createRoom: PropTypes.func.isRequired,
 };

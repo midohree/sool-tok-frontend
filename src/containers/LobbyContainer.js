@@ -1,30 +1,18 @@
 import { connect } from 'react-redux';
-import io from 'socket.io-client';
 
 import Lobby from '../components/Lobby';
-import { openSocket, closeSocket } from '../actions/actionCreator';
+import * as roomAction from '../actions/roomAction';
 
-const mapStateToProps = state => ({ user: state.user });
+const mapStateToProps = state => ({
+  user: state.user,
+  socket: state.socket,
+  room: state.room,
+});
 
 const mapDispatchToProps = dispatch => {
-  const socket = io(process.env.REACT_APP_PROXY_URL);
-
-  socket.on('success create room', ({ newRoom }) => {
-    // TODO: Handle Room State
-    console.log('success create room', newRoom);
-  });
-
   return {
-    openSocket(userName) {
-      socket.emit('new user', { userName });
-      dispatch(openSocket(socket));
-    },
-    closeSocket() {
-      socket.disconnect();
-      dispatch(closeSocket());
-    },
-    createRoom(userId, roomData) {
-      socket.emit('create room', { userId, roomData });
+    createRoom(room) {
+      dispatch(roomAction.createRoom(room));
     },
   };
 };

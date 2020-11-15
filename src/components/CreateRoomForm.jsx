@@ -11,7 +11,8 @@ function CreateRoomForm({ onSubmit }) {
 
   const submitRoomData = ev => {
     ev.preventDefault();
-    onSubmit(inputs);
+    const { roomName, maxNum } = inputs;
+    onSubmit({ roomName, maxNum: Number(maxNum) });
   };
 
   const handleInputChange = ev => {
