@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Button from './Button';
 import FriendCell from './FriendCell';
 
-function MyPage({ onLoad, onLogout, onLoadRequestList, onSubmit, user }) {
+function MyPage({ onLoad, onLogout, onLoadRequestList, onSubmit, onRequest, user }) {
   const [isRequestList, setRequestList] = useState(false);
 
   // FOR TEST
@@ -83,6 +83,7 @@ MyPage.propTypes = {
   onLogout: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   onLoadRequestList: PropTypes.func.isRequired,
+  onRequest: PropTypes.func.isRequired,
   user: PropTypes.oneOfType([
     PropTypes.oneOf([null]),
     PropTypes.object,

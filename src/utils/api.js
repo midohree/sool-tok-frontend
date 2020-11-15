@@ -82,10 +82,8 @@ const requestFriend = async (id, token, email) => {
         'jwt-token': token,
       },
     });
-    // TODO: 204 status code는 body를 받을 수 없음..상태 코드 업데이트 혹은 res data 처리를 어떻게 할지 논의 필요
-    console.log('data', data);
 
-    if (data.result === 'error') throw new Error(data);
+    if (data.status === 204) throw new Error('The user does not exist');
   } catch (err) {
     console.error(err);
   }
