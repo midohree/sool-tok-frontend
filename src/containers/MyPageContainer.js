@@ -17,6 +17,9 @@ const mapDispatchToProps = dispatch => ({
       console.error(err);
     }
   },
+  async onLoadRequestList(user) {
+    console.log('request list');
+  },
   async onLogout(user) {
     try {
       const token = localStorage.getItem('jwt-token');
@@ -24,6 +27,13 @@ const mapDispatchToProps = dispatch => ({
 
       dispatch(logoutUser());
       localStorage.removeItem('jwt-token');
+    } catch (err) {
+      console.error(err);
+    }
+  },
+  async onSubmit() {
+    try {
+      console.log('onSubmit');
     } catch (err) {
       console.error(err);
     }
