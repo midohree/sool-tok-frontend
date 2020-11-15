@@ -18,12 +18,3 @@ export const addFriendRequestList = list => ({
   type: types.ADD_FRIEND_REQUEST_LIST,
   payload: { friendRequestList: list },
 });
-
-export const openSocket = socket => ({
-  type: types.OPEN_SOCKET,
-  payload: { socket },
-});
-
-export const closeSocket = () => ({
-  type: types.CLOSE_SOCKET,
-});

@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
-import FloatingButton from './FloatingButton';
 import MyPageContainer from '../containers/MyPageContainer';
 import LobbyContainer from '../containers/LobbyContainer';
+import RoomContainer from '../containers/RoomContainer';
+import FloatingButton from './FloatingButton';
 import Login from './Login';
 
 function App({ onLogin, onLoad, user }) {
@@ -25,10 +26,11 @@ function App({ onLogin, onLoad, user }) {
       { user && isOpenedMyPage && <MyPageContainer /> }
       { user && <FloatingButton onClick={() => { setOpenMyPage(!isOpenedMyPage); }} text='나' />}
       <Switch>
-        <Route path='/'>
-          { user ? <LobbyContainer /> : <Login onLogin={onLogin} /> }
+        <Route exact path='/'>
+          {user ? <LobbyContainer /> : <Login onLogin={onLogin} />}
         </Route>
-        <Route path='/room/:id'>
+        <Route path='/rooms/:room_id'>
+          <RoomContainer />
         </Route>
         <Redirect to='/' />
       </Switch>

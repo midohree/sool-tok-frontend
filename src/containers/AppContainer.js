@@ -1,8 +1,10 @@
 import { connect } from 'react-redux';
+import io from 'socket.io-client';
 
 import App from '../components/App';
 import { userService } from '../utils/api';
 import { loginUser } from '../actions/actionCreator';
+import * as socketAction from '../actions/socketAction';
 
 const mapStateToProps = state => ({ user: state.user });
 
@@ -12,8 +14,11 @@ const mapDispatchToProps = dispatch => ({
 
     if (token) {
       const { user } = await userService.tokenLogin(token);
-      if (user) dispatch(loginUser(user));
+      dispatch(loginUser(user));
     }
+
+    const socket = io(process.env.REACT_APP_PROXY_URL);
+    dispatch(socketAction.openSocket(socket));
   },
   async onLogin() {
     try {
