@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 function AddFriendForm({ onSubmit }) {
   const [input, setInput] = useState('');
-  const [hasError, setHasError] = useState('');
 
   const submitRoomData = ev => {
     ev.preventDefault();
