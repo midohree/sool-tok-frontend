@@ -61,6 +61,61 @@ const getFriendList = async (id, token) => {
   }
 };
 
-const userService = { googleLogin, tokenLogin, logout, getFriendList };
+const getFriendRequestList = async (id, token) => {
+  try {
+    const { data } = await axios.get(`/users/${id}/friends/request`, {
+      headers: {
+        'jwt-token': token,
+      },
+    });
+
+    if (data.result === 'error') throw new Error(data);
+    return data.friendRequestList;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const requestFriend = async (id, token, email) => {
+  try {
+    const data = await axios.post(`/users/${id}/friends/request`, { email }, {
+      headers: {
+        'jwt-token': token,
+      },
+    });
+
+    if (data.status === 204) throw new Error('The user does not exist');
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const responseFriendRequest = async (id, token, isAccepted, targetUserId) => {
+  try {
+    const { data } = await axios.put(`/users/${id}/friends/request`, {
+      isAccepted,
+      target_user_id: targetUserId,
+    }, {
+      headers: {
+        'jwt-token': token,
+      },
+    });
+
+    if (data.result === 'error') throw new Error(data);
+    return data.friendRequestList;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const userService = {
+  googleLogin,
+  tokenLogin,
+  logout,
+  getFriendList,
+  getFriendRequestList,
+  requestFriend,
+  responseFriendRequest,
+};
 
 export { userService };
