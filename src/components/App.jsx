@@ -14,9 +14,16 @@ function App({ onLogin, onLoad, user }) {
     onLoad();
   }, []);
 
+  // TODO: 임시 처리 - 로그아웃 하고 새로고침 하지 않은 상태에서 로그인하면 마이페이지는 항상 꺼져 있게 유지 (확인 필요)
+  useEffect(() => {
+    if (!user) {
+      setOpenMyPage(false);
+    }
+  }, [user]);
+
   return (
     <>
-      { isOpenedMyPage && <MyPageContainer /> }
+      { user && isOpenedMyPage && <MyPageContainer /> }
       { user && <FloatingButton onClick={() => { setOpenMyPage(!isOpenedMyPage); }} text='나' />}
       <Switch>
         <Route path='/'>
