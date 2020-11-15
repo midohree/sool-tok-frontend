@@ -10,7 +10,7 @@ function Lobby({ user, openSocket, closeSocket, createRoom }) {
   const [modalContent, setmodalContent] = useState(null);
 
   useEffect(() => {
-    openSocket(user.name);
+    openSocket(user);
     return () => closeSocket();
   }, []);
 
@@ -28,7 +28,7 @@ function Lobby({ user, openSocket, closeSocket, createRoom }) {
         onClick={() =>
           openModal(
             <CreateRoomForm
-              onSubmit={roomData => createRoom(user.id, roomData)}
+              onSubmit={roomData => createRoom(user, roomData)}
             />,
           )
         }
