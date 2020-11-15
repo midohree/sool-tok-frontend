@@ -14,6 +14,11 @@ export const addFriendList = list => ({
   payload: { friendList: list },
 });
 
+export const addFrinedRequestList = list => ({
+  type: types.ADD_FRIEND_REQUEST_LIST,
+  payload: { friendRequestList: list },
+});
+
 export const openSocket = socket => ({
   type: types.OPEN_SOCKET,
   payload: { socket },
