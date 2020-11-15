@@ -15,9 +15,9 @@ const mapDispatchToProps = dispatch => {
   });
 
   return {
-    openSocket(userId) {
-      socket.emit('new user', { userId });
-      dispatch(openSocket(userId, socket));
+    openSocket(userName) {
+      socket.emit('new user', { userName });
+      dispatch(openSocket(socket));
     },
     closeSocket() {
       socket.disconnect();
