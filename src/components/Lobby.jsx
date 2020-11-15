@@ -3,8 +3,10 @@ import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import Button from './Button';
+import ModalPortal from './ModalPortal';
 import Modal from './Modal';
 import CreateRoomForm from './CreateRoomForm';
+import JoinRoomForm from './JoinRoomForm';
 
 function Lobby({ user, socket, createRoom }) {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -44,10 +46,14 @@ function Lobby({ user, socket, createRoom }) {
         text='+ 테이블 잡기'
       />
       <Button
-        onClick={() => openModal(<CreateRoomForm onSubmit={console.log} />)}
+        onClick={() => openModal(<JoinRoomForm onSubmit={console.log} />)}
         text='URL로 참여하기'
       />
-      {isModalOpen && <Modal closeModal={closeModal}>{modalContent}</Modal>}
+      { isModalOpen && (
+        <ModalPortal>
+          <Modal closeModal={closeModal}>{modalContent}</Modal>
+        </ModalPortal>
+      )}
     </div>
   );
 }
