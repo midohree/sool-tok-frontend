@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Button from './Button';
 
 
-function FriendCell({ onSubmit, name, photoUrl, isOnline, isRequest }) {
+function FriendCell({ onSubmit, name, photoUrl, isOnline, isRequest, requestId, userId }) {
   return (
     <>
       <div style={{ display: 'flex', backgroundColor: isOnline ? 'lightgreen' : 'salmon' }}>
@@ -13,8 +13,8 @@ function FriendCell({ onSubmit, name, photoUrl, isOnline, isRequest }) {
         {
           isRequest &&
           <div style={{ backgroundColor: 'lightpink' }}>
-            <Button onClick={() => { onSubmit(); }} text='수락' />
-            <Button onClick={() => { onSubmit(); }} text='거절' />
+            <Button onClick={() => { onSubmit(userId, true, requestId); }} text='수락' />
+            <Button onClick={() => { onSubmit(userId, false, requestId); }} text='거절' />
           </div>
         }
       </div>
@@ -30,4 +30,6 @@ FriendCell.propTypes = {
   photoUrl: PropTypes.string.isRequired,
   isOnline: PropTypes.bool.isRequired,
   isRequest: PropTypes.bool.isRequired,
+  requestId: PropTypes.string.isRequired,
+  userId: PropTypes.string.isRequired,
 };

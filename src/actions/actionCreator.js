@@ -14,7 +14,7 @@ export const addFriendList = list => ({
   payload: { friendList: list },
 });
 
-export const addFrinedRequestList = list => ({
+export const addFriendRequestList = list => ({
   type: types.ADD_FRIEND_REQUEST_LIST,
   payload: { friendRequestList: list },
 });

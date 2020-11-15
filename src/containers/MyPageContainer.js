@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import MyPage from '../components/MyPage';
 import { userService } from '../utils/api';
-import { addFriendList, addFrinedRequestList, logoutUser } from '../actions/actionCreator';
+import { addFriendList, addFriendRequestList, logoutUser } from '../actions/actionCreator';
 
 const mapStateToProps = state => ({ user: state.user });
 
@@ -19,8 +19,8 @@ const mapDispatchToProps = dispatch => ({
   },
   async onLoadRequestList(user) {
     const token = localStorage.getItem('jwt-token');
-    const RequestFriendList = await userService.getFriendRequestList(user._id, token);
-    dispatch(addFrinedRequestList(RequestFriendList));
+    const requestFriendList = await userService.getFriendRequestList(user._id, token);
+    dispatch(addFriendRequestList(requestFriendList));
   },
   async onLogout(user) {
     try {
@@ -41,9 +41,12 @@ const mapDispatchToProps = dispatch => ({
       console.error(err);
     }
   },
-  async onSubmit() {
+  async onSubmit(userId, isAccepted, targetUserId) {
     try {
-      console.log('onSubmit');
+      const token = localStorage.getItem('jwt-token');
+      const friendRequestList =
+        await userService.responseFriendRequest(userId, token, isAccepted, targetUserId);
+      dispatch(addFriendRequestList(friendRequestList));
     } catch (err) {
       console.error(err);
     }

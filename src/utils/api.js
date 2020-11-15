@@ -68,6 +68,7 @@ const getFriendRequestList = async (id, token) => {
         'jwt-token': token,
       },
     });
+
     if (data.result === 'error') throw new Error(data);
     return data.friendRequestList;
   } catch (err) {
@@ -89,6 +90,24 @@ const requestFriend = async (id, token, email) => {
   }
 };
 
+const responseFriendRequest = async (id, token, isAccepted, targetUserId) => {
+  try {
+    const { data } = await axios.put(`/users/${id}/friends/request`, {
+      isAccepted,
+      target_user_id: targetUserId,
+    }, {
+      headers: {
+        'jwt-token': token,
+      },
+    });
+
+    if (data.result === 'error') throw new Error(data);
+    return data.friendRequestList;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 const userService = {
   googleLogin,
   tokenLogin,
@@ -96,6 +115,7 @@ const userService = {
   getFriendList,
   getFriendRequestList,
   requestFriend,
+  responseFriendRequest,
 };
 
 export { userService };

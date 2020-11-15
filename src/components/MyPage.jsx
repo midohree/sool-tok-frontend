@@ -8,7 +8,7 @@ function MyPage({ onLoad, onLogout, onLoadRequestList, onSubmit, onRequest, user
   const [isRequestList, setRequestList] = useState(false);
 
   // FOR TEST
-  user.friendRequestList = [{ _id: '1asdad', name: '김도희', photoUrl: 'https://avatars3.githubusercontent.com/u/60248910?s=400&u=d906c83a0156628a86a758b717b50a2c2b417046&v=4', isOnline: true }];
+  user.friendRequestList = [{ _id: '5fae69b9658cb56537fb2d29', name: '김도희', photoUrl: 'https://avatars3.githubusercontent.com/u/60248910?s=400&u=d906c83a0156628a86a758b717b50a2c2b417046&v=4', isOnline: true }];
 
   useEffect(() => {
     onLoad(user);
@@ -57,10 +57,11 @@ function MyPage({ onLoad, onLogout, onLoadRequestList, onSubmit, onRequest, user
                     isRequest={true}
                     key={request._id}
                     name={request.name}
-                    email={request.email}
                     photoUrl={request.photoUrl}
                     isOnline={request.isOnline}
                     onSubmit={onSubmit}
+                    requestId={request._id}
+                    userId={user._id}
                   />
                 );
               })
