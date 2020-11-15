@@ -3,7 +3,6 @@ import axios from 'axios';
 
 // Test
 axios.defaults.baseURL = process.env.REACT_APP_PROXY_URL;
-// axios.defaults.baseURL = 'http://192.168.0.53:8080';
 
 const googleLogin = async () => {
   try {
