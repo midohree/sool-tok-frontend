@@ -22,10 +22,10 @@ function Room({ user, socket, joinRoom, room }) {
             memberList: [ { id : "5fae43b50e45151660ac462e", name : "Carrot Cold" } ],
             isLocked: false
           }
-        */
+      */
       joinRoom(room);
     });
-  }, [socket, user]);
+  }, [socket]);
 
   return (
     <div>
